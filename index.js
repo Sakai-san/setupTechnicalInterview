@@ -62,3 +62,24 @@ const salarySumByGender = (isMan, employees) =>
   employees.reduce((acc, item) => (isMan(item) ? acc : acc + item.salary), 0);
 
 console.log(salarySumByGender(not(isEmployeeMan), employees));
+
+/**
+ * Assignment 3
+ * salarySumByGender : predicate [Employees] => number
+
+
+{ 
+    id: 2,
+    sub: [{
+        id: 3,
+        sub: [{
+            id:5,
+            sub:[],
+
+        },{
+            id: 1,
+            sub:[]
+        }]
+    }]
+}
+ */
