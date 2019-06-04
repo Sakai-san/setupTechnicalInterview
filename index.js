@@ -102,16 +102,14 @@ console.log(salarySumByGender2(isEmployeeWoman, employees));
         }]
     }]
 }
-*/
 
 const lookup = (id, organigramm) => {
-  if (orgranigramm.id === undefined) {
-    return null;
-  } else if (id === organigramm.id) {
-    return organigramm;
-  } else {
-    return lookup(id, orgrgramm.sub);
+  for (let i = 0; i < organigramm.sub.length; i++) {
+    if (organigramm.sub[i].id === id) {
+      return organigramm.sub[i];
+    }
   }
+  return false;
 };
 
 const generateOrganigram = employees => {
@@ -124,7 +122,69 @@ const generateOrganigram = employees => {
         sub: [...orgranigram]
       };
     } else if (hasBoss(currentEmployee)) {
-      lookup(orgranigram).sub.push = currentEmployee;
+      const node = lookup(currentEmployee.bossId, orgranigram);
+      if (node) node.sub.push = currentEmployee;
     }
   }
 };
+
+*/
+
+const organigramLeft = {
+  id: 4,
+  sub: [
+    {
+      id: 2,
+      sub: []
+    },
+    {
+      id: 5,
+      sub: [
+        {
+          id: 8,
+          sub: []
+        }
+      ]
+    }
+  ]
+};
+
+const organigramRight = {
+  id: 7,
+  sub: [
+    {
+      id: 9,
+      sub: [
+        {
+          id: 3,
+          sub: []
+        }
+      ]
+    },
+    {
+      id: 1,
+      sub: []
+    }
+  ]
+};
+
+const organigram = {
+  id: 10,
+  sub: [organigramLeft, organigramRight]
+};
+
+const lookup = (id, organigram) => {
+  if (organigram.id === id) {
+    return organigram;
+  } else {
+    let node = null;
+    for (let i = 0; i < organigram.sub.length; i++) {
+      if (node === null) {
+        node = lookup(id, organigram.sub[i]);
+      }
+    }
+    return node;
+  }
+};
+
+console.log(lookup(4, organigram));
