@@ -41,23 +41,24 @@ const employees = [
 const isEmployeeMan = ({ gender }) => gender === "m";
 
 /**
- * Assignment 2 : Do implement not
+ * Assignment 2
+ * getEmployee :: (number, [Employee]) → Employee|undefined
+ */
+
+const getEmployee = (id, employees) => employees.find(e => id === e.id);
+console.log(getEmployee(19, employees));
+
+/**
+ * Assignment 3 : Do implement not
  * not :: (any → bool) → any → bool
- * isEmployeeMan :: (Employee) → bool
+ * isEmployeeWoman :: (Employee) → bool
  */
 
 const not = f => a => !f(a);
 const isEmployeeWoman = not(isEmployeeMan);
 
 /**
- * Assignment 2b : Do implement haveBoss
- * haveBoss :: Employee → bool
- */
-
-const hasBoss = employee => employee.bossId !== employee.id;
-
-/**
- * Assignment 3
+ * Assignment 4
  * subordinatesOf :: (number, [Employee]) → [Employee]
  */
 
@@ -69,7 +70,7 @@ const subordinatesOf = (bossId, employees) =>
 console.log(subordinatesOf(2, employees));
 
 /**
- * Assignment 4
+ * Assignment 5
  * salarySumByGender :: ((Employee → boolen) , [Employees]) → number
  */
 
@@ -81,12 +82,8 @@ const salarySumByGender = (isOfGender, employees) =>
 
 console.log(salarySumByGender(isEmployeeWoman, employees));
 
-const salarySumByGender2 = (isOfGender, employees) =>
-  employees.filter(isOfGender).reduce((acc, item) => acc + item.salary, 0);
-console.log(salarySumByGender2(isEmployeeWoman, employees));
-
 /**
- * Assignment 5
+ * Assignment 6
  * generateOrganigram :: [Employee] => object
 { 
     id: 2,
