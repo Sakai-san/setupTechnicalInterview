@@ -49,6 +49,14 @@ const getEmployee = (id, employees) => employees.find(e => id === e.id);
 console.log(getEmployee(19, employees));
 
 /**
+ * Assignment 3
+ * hasBoss :: Employee → bool
+ */
+
+const hasBoss = employee => employee.id !== employee.bossId;
+console.log(hasBoss(employees[1]));
+
+/**
  * Assignment 3 : Do implement not
  * not :: (any → bool) → any → bool
  * isEmployeeWoman :: (Employee) → bool
@@ -56,6 +64,22 @@ console.log(getEmployee(19, employees));
 
 const not = f => a => !f(a);
 const isEmployeeWoman = not(isEmployeeMan);
+
+/**
+ * Assignment 4: increase salaries
+ * hasBoss :: Employee → bool
+ */
+
+const increasedSalary = (percent, salary) => salary * (1 + percent);
+const doIncreaseSalary = criteria => employee =>
+  criteria(employee) ? increasedSalary(0.03, employee.salary) : employee.salary;
+
+const doIncreaseSalaries = criteria => employees =>
+  employees.map(e => ({
+    ...e,
+    salary: doIncreaseSalary(criteria)(e)
+  }));
+console.log("newEmployee", doIncreaseSalaries(isEmployeeWoman)(employees));
 
 /**
  * Assignment 4
