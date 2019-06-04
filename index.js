@@ -35,39 +35,59 @@ const employees = [
 
 /**
  * Assignment 1
- * isEmployeeMan : Employee => Boolean
+ * isEmployeeMan :: (Employee) → bool
  */
 
 const isEmployeeMan = ({ gender }) => gender === "m";
 
 /**
- * Assignment 2
- * employeesWorkingFor : number [Employees] => [Employees]
+ * Assignment 2 : Do implement not
+ * not :: (any → bool) → any → bool
+ * isEmployeeMan :: (Employee) → bool
  */
 
-const employeesWorkingFor = (bossId, employees) =>
+const not = f => a => !f(a);
+const isEmployeeWoman = not(isEmployeeMan);
+
+/**
+ * Assignment 2b : Do implement haveBoss
+ * haveBoss :: Employee → bool
+ */
+
+const hasBoss = employee => employee.bossId !== employee.id;
+
+/**
+ * Assignment 3
+ * subordinatesOf :: (number, [Employee]) → [Employee]
+ */
+
+const subordinatesOf = (bossId, employees) =>
   employees.filter(
     employee => employee.bossId === bossId && employee.id !== employee.bossId
   );
 
-console.log(employeesWorkingFor(2, employees));
+console.log(subordinatesOf(2, employees));
 
 /**
- * Assignment 3
- * salarySumByGender : predicate [Employees] => number
+ * Assignment 4
+ * salarySumByGender :: ((Employee → boolen) , [Employees]) → number
  */
-const not = f => a => !f(a);
 
-const salarySumByGender = (isMan, employees) =>
-  employees.reduce((acc, item) => (isMan(item) ? acc : acc + item.salary), 0);
+const salarySumByGender = (isOfGender, employees) =>
+  employees.reduce(
+    (acc, item) => (isOfGender(item) ? acc + item.salary : acc),
+    0
+  );
 
-console.log(salarySumByGender(not(isEmployeeMan), employees));
+console.log(salarySumByGender(isEmployeeWoman, employees));
+
+const salarySumByGender2 = (isOfGender, employees) =>
+  employees.filter(isOfGender).reduce((acc, item) => acc + item.salary, 0);
+console.log(salarySumByGender2(isEmployeeWoman, employees));
 
 /**
- * Assignment 3
- * salarySumByGender : predicate [Employees] => number
-
-
+ * Assignment 5
+ * generateOrganigram :: [Employee] => object
 { 
     id: 2,
     sub: [{
@@ -82,4 +102,29 @@ console.log(salarySumByGender(not(isEmployeeMan), employees));
         }]
     }]
 }
- */
+*/
+
+const lookup = (id, organigramm) => {
+  if (orgranigramm.id === undefined) {
+    return null;
+  } else if (id === organigramm.id) {
+    return organigramm;
+  } else {
+    return lookup(id, orgrgramm.sub);
+  }
+};
+
+const generateOrganigram = employees => {
+  let organigram = {};
+  for (let i = 0; i < employees.length; i++) {
+    const currentEmployee = employees[i];
+    if (isBoss(currentEmployee)) {
+      orgranigram = {
+        id: currentEmployee.id,
+        sub: [...orgranigram]
+      };
+    } else if (hasBoss(currentEmployee)) {
+      lookup(orgranigram).sub.push = currentEmployee;
+    }
+  }
+};
