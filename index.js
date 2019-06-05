@@ -66,6 +66,14 @@ const not = f => a => !f(a);
 const isEmployeeWoman = not(isEmployeeMan);
 
 /**
+ * Assignment 4
+ * filterEmployees :: ((Employee → bool), [Employee]) → [Employee]
+ */
+
+const filterEmployees = (criteria, employees) => employees.filter(criteria);
+console.log("filterEmployees", filterEmployees(isEmployeeMan, employees));
+
+/**
  * Assignment 4: increase salaries
  * hasBoss :: Employee → bool
  */
