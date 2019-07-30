@@ -201,6 +201,12 @@ const organigram = {
   id: 10,
   sub: [organigramLeft, organigramRight]
 };
+/*
+            10
+       4        7
+    2    5    9   1
+       8    3
+*/
 
 const lookup = (id, organigram) => {
   if (organigram.id === id) {
@@ -216,4 +222,62 @@ const lookup = (id, organigram) => {
   }
 };
 
-console.log(lookup(4, organigram));
+const categories = [
+  {
+    id: 12,
+    parentId: null,
+    name: "sport",
+    sub: [
+      { id: 13, parentId: 12, name: "tennis", sub: [] },
+      { id: 14, parentId: 12, name: "soccer", sub: [] }
+    ]
+  },
+  {
+    id: 20,
+    parentId: null,
+    name: "countries",
+    sub: [
+      {
+        id: 21,
+        parentId: 20,
+        name: "Vaud",
+        sub: [
+          { id: 23, parentId: 21, name: "Payerne", sub: [] },
+          { id: 24, parentId: 21, name: "Nyon", sub: [] }
+        ]
+      },
+      {
+        id: 22,
+        parentId: 20,
+        name: "Zuerich",
+        sub: [
+          { id: 25, parentId: 22, name: "Duebendorf", sub: [] },
+          { id: 26, parentId: 22, name: "Spreitenbach", sub: [] }
+        ]
+      }
+    ]
+  }
+];
+
+const traverse2 = (categories, depth) => {
+  return categories.map(category => {
+    if (category.sub.length === 0) {
+      console.log(`${Array(depth).join(" ")} ${category.name}`);
+    } else {
+      return traverse2(category.sub, depth + 1);
+    }
+  });
+};
+
+const traverse = (categories, depth) => {
+  return categories.map(category => {
+    if (category.sub.length === 0) {
+      console.log(`${Array(depth).join(" ")} ${category.name}`);
+    } else {
+      console.log(`${Array(depth).join(" ")} ${category.name}`);
+      traverse(category.sub, depth + 1);
+    }
+  });
+};
+
+traverse(categories, 0);
